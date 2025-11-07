@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="DJERI Lab · Hub perso"
+  description="Hub personnel pour mes recherches, projets IA, cours et CV."
+>
+  <div class="card">
+    <div class="pill">
+      <span class="pill-dot"></span>
+      <span>Personal knowledge base</span>
+    </div>
+
+    <h1 style="margin: 1rem 0 0.5rem; font-size: 1.9rem; letter-spacing: -0.03em;">
+      Bienvenue sur <span style="color: var(--accent);">DJERI Lab</span>
+    </h1>
+
+    <p style="margin: 0 0 1.5rem; color: var(--text-soft); max-width: 40rem;">
+      Un petit hub minimaliste pour centraliser mes articles de recherche, mes
+      projets d&apos;IA, mon CV, et les cours / présentations que je prépare.
+    </p>
+
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 1.25rem;
+      "
+    >
+      <section
+        style="
+          padding: 1rem 1.1rem;
+          border-radius: 1rem;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.13), transparent);
+        "
+      >
+        <h2 style="font-size: 1rem; margin: 0 0 0.5rem;">Recherche & lecture</h2>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin: 0 0 0.8rem;">
+          PDF d&apos;articles que je lis ou que je prépare, plus quelques notes.
+        </p>
+        <a href="/research" style="font-size: 0.8rem;">→ Voir les articles</a>
+      </section>
+
+      <section
+        style="
+          padding: 1rem 1.1rem;
+          border-radius: 1rem;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.2), transparent);
+        "
+      >
+        <h2 style="font-size: 1rem; margin: 0 0 0.5rem;">Projets & blog IA</h2>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin: 0 0 0.8rem;">
+          Articles courts sur mes expérimentations en RL, robotique, generative design, etc.
+        </p>
+        <a href="/blog" style="font-size: 0.8rem;">→ Ouvrir le blog</a>
+      </section>
+
+      <section
+        style="
+          padding: 1rem 1.1rem;
+          border-radius: 1rem;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.2), transparent);
+        "
+      >
+        <h2 style="font-size: 1rem; margin: 0 0 0.5rem;">CV & cours</h2>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin: 0 0 0.8rem;">
+          Mon CV en PDF et les supports de cours / slides que je prépare.
+        </p>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="/cv" style="font-size: 0.8rem;">→ Voir le CV</a>
+          <a href="/courses" style="font-size: 0.8rem;">→ Voir les cours</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

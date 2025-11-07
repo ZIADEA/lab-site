@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="CV – DJERI Lab">
+  <div class="card">
+    <h1 style="margin: 0 0 0.75rem; font-size: 1.4rem;">Mon CV</h1>
+    <p style="margin: 0 0 1rem; color: var(--text-soft); max-width: 36rem;">
+      Version PDF, intégrée directement dans la page. Tu peux aussi le télécharger.
+    </p>
+
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      <a href="/cv/djeri-cv.pdf" download style="font-size: 0.8rem;">
+        → Télécharger le CV (PDF)
+      </a>
+    </div>
+
+    <div
+      style="
+        border-radius: 1rem;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        overflow: hidden;
+        background: #020617;
+      "
+    >
+      <iframe
+        src="/cv/djeri-cv.pdf#view=fitH"
+        style="width: 100%; height: 75vh; border: none;"
+      ></iframe>
+    </div>
+  </div>
+</BaseLayout>

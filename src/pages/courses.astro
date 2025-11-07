@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const courses = [
+  {
+    title: 'Techniques de jointing & fixing',
+    desc: 'Support de cours en anglais pour ENSAM Meknès.',
+    pdf: '/courses/jointing-fixing.pdf',
+    pptx: '/courses/jointing-fixing.pptx',
+  },
+  {
+    title: 'Navigation de robots mobiles (RL / planning)',
+    desc: 'Slides sur la navigation autonome, RL, DWA, TEB, etc.',
+    pdf: '/courses/mobile-robots-nav.pdf',
+    pptx: '/courses/mobile-robots-nav.pptx',
+  },
+];
+---
+
+<BaseLayout title="Cours & présentations – DJERI Lab">
+  <div class="card">
+    <h1 style="margin: 0 0 0.75rem; font-size: 1.4rem;">Cours & présentations</h1>
+    <p style="margin: 0 0 1.25rem; color: var(--text-soft); max-width: 40rem;">
+      Sélection de présentations que je prépare (exportées en PDF pour être visibles
+      directement dans le navigateur).
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      {courses.map((course) => (
+        <section
+          style="
+            border-radius: 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 0.9rem 1rem;
+            background: rgba(15, 23, 42, 0.95);
+          "
+        >
+          <h2 style="margin: 0 0 0.3rem; font-size: 1rem;">{course.title}</h2>
+          <p style="margin: 0 0 0.7rem; font-size: 0.85rem; color: var(--text-soft);">
+            {course.desc}
+          </p>
+          <div style="display: flex; gap: 0.9rem; flex-wrap: wrap; font-size: 0.8rem;">
+            <a href={course.pdf} target="_blank" rel="noreferrer">
+              → Ouvrir en PDF
+            </a>
+            <a href={course.pptx} download>
+              → Télécharger le PPTX
+            </a>
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

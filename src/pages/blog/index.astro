@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Import de tous les fichiers .md dans ce dossier
+const postModules = import.meta.glob('./*.md', { eager: true });
+
+const posts = Object.values(postModules)
+  .map((mod: any) => ({
+    url: mod.url,
+    frontmatter: mod.frontmatter,
+  }))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+---
+
+<BaseLayout title="Blog – DJERI Lab" description="Notes sur mes projets IA.">
+  <div class="card">
+    <h1 style="margin: 0 0 0.75rem; font-size: 1.4rem;">Blog projets & IA</h1>
+    <p style="margin: 0 0 1.25rem; color: var(--text-soft); max-width: 40rem;">
+      Petits billets pour documenter mes expériences (RL, robotique, generative design,
+      dashboard, etc.).
+    </p>
+
+    {posts.length === 0 ? (
+      <p style="color: var(--text-soft); font-size: 0.9rem;">
+        Aucun article pour l&apos;instant. Ajoute un fichier <code>.md</code> dans
+        <code>src/pages/blog</code>.
+      </p>
+    ) : (
+      <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+        {posts.map((post) => (
+          <article
+            style="
+              border-radius: 1rem;
+              border: 1px solid rgba(148, 163, 184, 0.55);
+              padding: 0.9rem 1rem;
+              background: rgba(15, 23, 42, 0.95);
+            "
+          >
+            <a href={post.url}>
+              <h2 style="margin: 0 0 0.35rem; font-size: 1.05rem;">
+                {post.frontmatter.title}
+              </h2>
+            </a>
+            <p
+              style="
+                margin: 0 0 0.4rem;
+                font-size: 0.8rem;
+                color: var(--text-soft);
+              "
+            >
+              {post.frontmatter.date}
+              {post.frontmatter.tags && ' · ' + post.frontmatter.tags.join(', ')}
+            </p>
+            {post.frontmatter.summary && (
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-soft);">
+                {post.frontmatter.summary}
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

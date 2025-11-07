@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const papers = [
+  {
+    title: 'Titre article 1',
+    venue: 'Conférence / Journal, 2025',
+    file: '/papers/article1.pdf',
+    tags: ['robotique', 'navigation', 'RL'],
+  },
+  {
+    title: 'Titre article 2',
+    venue: 'ArXiv, 2024',
+    file: '/papers/article2.pdf',
+    tags: ['vision', 'deep learning'],
+  },
+];
+---
+
+<BaseLayout title="Recherche – DJERI Lab">
+  <div class="card">
+    <h1 style="margin: 0 0 0.75rem; font-size: 1.4rem;">Articles & notes de lecture</h1>
+    <p style="margin: 0 0 1.25rem; color: var(--text-soft); max-width: 40rem;">
+      Liste d&apos;articles que je lis ou que j&apos;utilise dans mes projets. Tu peux
+      remplacer/compléter le tableau <code>papers</code> ci-dessus.
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+      {papers.map((paper) => (
+        <article
+          style="
+            border-radius: 0.9rem;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 0.85rem 1rem;
+            background: rgba(15, 23, 42, 0.9);
+          "
+        >
+          <h2 style="margin: 0 0 0.2rem; font-size: 1rem;">{paper.title}</h2>
+          <p style="margin: 0 0 0.5rem; font-size: 0.8rem; color: var(--text-soft);">
+            {paper.venue}
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem;">
+            {paper.tags.map((tag) => (
+              <span
+                style="
+                  font-size: 0.7rem;
+                  padding: 0.15rem 0.5rem;
+                  border-radius: 999px;
+                  border: 1px solid rgba(148, 163, 184, 0.6);
+                "
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <a
+            href={paper.file}
+            target="_blank"
+            rel="noreferrer"
+            style="font-size: 0.8rem;"
+          >
+            → Ouvrir le PDF
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
