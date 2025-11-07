@@ -1,223 +1,181 @@
----
-const {
-  title = 'DJERI Lab',
-  description = 'Hub perso : AI, data, recherche et cours.',
-} = Astro.props;
----
+<style global>
+  :root {
+    /* Palette ultra sombre, très peu saturée */
+    --bg: #020617;                 /* fond global quasi noir */
+    --bg-alt: #020617;
+    --accent: #64748b;             /* gris bleuté discret */
+    --accent-soft: rgba(100, 116, 139, 0.15);
+    --accent-2: #4b5563;
+    --accent-3: #6b7280;
+    --text-main: #e5e7eb;          /* texte principal */
+    --text-soft: #6b7280;          /* texte secondaire */
+    --border-subtle: rgba(55, 65, 81, 0.8);
+  }
 
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <!-- Empêcher l'indexation par défaut -->
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
 
-    <style global>
-      :root {
-        --bg: #050816;
-        --bg-alt: #0b1020;
-        --accent: #7b5cff;
-        --accent-soft: rgba(123, 92, 255, 0.15);
-        --accent-2: #22d3ee;
-        --accent-3: #a855f7;
-        --text-main: #e5e7eb;
-        --text-soft: #9ca3af;
-        --border-subtle: rgba(148, 163, 184, 0.35);
-      }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(
+      circle at top,
+      #020617 0,
+      #020617 40%,
+      #000000 100%
+    );
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+      "Segoe UI", sans-serif;
+  }
 
-      * {
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-      }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
-        color: var(--text-main);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "Segoe UI", sans-serif;
-      }
+  a:hover {
+    color: var(--accent);
+  }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+  .shell {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+  }
 
-      a:hover {
-        color: var(--accent);
-      }
+  .card {
+    border-radius: 1rem;
+    border: 1px solid var(--border-subtle);
+    background: #020617; /* fond plein, très sombre */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+    padding: 1.4rem 1.6rem;
+  }
 
-      .shell {
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 1.5rem 1.25rem 3rem;
-      }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--border-subtle);
+    background: #020617;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
 
-      .card {
-        border-radius: 1.25rem;
-        border: 1px solid var(--border-subtle);
-        background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
-        box-shadow:
-          0 0 0 1px rgba(15, 23, 42, 0.9),
-          0 18px 45px rgba(15, 23, 42, 0.9);
-        padding: 1.5rem 1.75rem;
-      }
+  .pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #4b5563;
+    box-shadow: 0 0 8px rgba(15, 23, 42, 0.9);
+  }
 
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        border-radius: 999px;
-        padding: 0.25rem 0.75rem;
-        border: 1px solid rgba(148, 163, 184, 0.45);
-        background: radial-gradient(
-          circle at top left,
-          rgba(123, 92, 255, 0.19),
-          rgba(15, 23, 42, 0.9)
-        );
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-      }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
 
-      .pill-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 999px;
-        background: radial-gradient(circle, #a855f7, #4f46e5);
-        box-shadow: 0 0 16px rgba(168, 85, 247, 0.95);
-      }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
+  .nav-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.6rem;
+    background: #020617;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
 
-      .nav-left {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
+  .nav-title {
+    line-height: 1.15;
+  }
 
-      .nav-logo {
-        width: 32px;
-        height: 32px;
-        border-radius: 0.9rem;
-        background: radial-gradient(
-          circle at 30% 20%,
-          #a855f7,
-          #2563eb 55%,
-          #0ea5e9 100%
-        );
-        box-shadow: 0 0 22px rgba(56, 189, 248, 0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: white;
-      }
+  .nav-title-main {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
 
-      .nav-title {
-        line-height: 1.1;
-      }
+  .nav-title-sub {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+  }
 
-      .nav-title-main {
-        font-size: 0.95rem;
-        font-weight: 600;
-      }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+  }
 
-      .nav-title-sub {
-        font-size: 0.75rem;
-        color: var(--text-soft);
-      }
+  .nav-link {
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-soft);
+  }
 
-      .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        font-size: 0.8rem;
-      }
+  .nav-link:hover {
+    border-color: var(--border-subtle);
+    background: #020617;
+    color: var(--text-main);
+  }
 
-      .nav-link {
-        padding: 0.35rem 0.9rem;
-        border-radius: 999px;
-        border: 1px solid transparent;
-        background: transparent;
-        color: var(--text-soft);
-      }
+  .nav-link--primary {
+    border-color: var(--border-subtle);
+    background: #020617;
+    color: var(--text-main);
+  }
 
-      .nav-link:hover {
-        border-color: rgba(148, 163, 184, 0.5);
-        background: radial-gradient(
-          circle at top left,
-          rgba(148, 163, 184, 0.16),
-          rgba(15, 23, 42, 0.96)
-        );
-        color: var(--text-main);
-      }
+  main {
+    margin-top: 0.5rem;
+  }
 
-      .nav-link--primary {
-        border-color: rgba(123, 92, 255, 0.8);
-        background: radial-gradient(
-          circle at top left,
-          rgba(123, 92, 255, 0.25),
-          rgba(15, 23, 42, 0.98)
-        );
-        color: var(--text-main);
-      }
+  /* Petits réglages typographiques généraux */
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
 
-      main {
-        margin-top: 0.5rem;
-      }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    background: #020617;
+    padding: 0.12rem 0.35rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(31, 41, 55, 0.9);
+  }
 
-      @media (max-width: 720px) {
-        .shell {
-          padding-inline: 1rem;
-        }
-        .card {
-          padding: 1.25rem 1.3rem;
-        }
-        .nav {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
-    </style>
-
-    <slot name="head" />
-  </head>
-  <body>
-    <div class="shell">
-      <header class="nav">
-        <div class="nav-left">
-          <div class="nav-logo">DJ</div>
-          <div class="nav-title">
-            <div class="nav-title-main">DJERI Lab</div>
-            <div class="nav-title-sub">AI · Data · Robotics</div>
-          </div>
-        </div>
-        <nav class="nav-links">
-          <a href="/" class="nav-link">Accueil</a>
-          <a href="/research" class="nav-link">Recherche</a>
-          <a href="/blog" class="nav-link nav-link--primary">Blog</a>
-          <a href="/cv" class="nav-link">CV</a>
-          <a href="/courses" class="nav-link">Cours</a>
-        </nav>
-      </header>
-
-      <main>
-        <slot />
-      </main>
-    </div>
-  </body>
-</html>
+  @media (max-width: 720px) {
+    .shell {
+      padding-inline: 1rem;
+    }
+    .card {
+      padding: 1.25rem 1.3rem;
+    }
+    .nav {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
